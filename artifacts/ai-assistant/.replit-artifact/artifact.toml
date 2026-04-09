@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Personal AI Assistant"
+version = "1.0.0"
+id = "artifacts/ai-assistant"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19570
+
+[services.development]
+run = "pnpm --filter @workspace/ai-assistant run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ai-assistant", "run", "build" ]
+publicDir = "artifacts/ai-assistant/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19570"
+BASE_PATH = "/"
